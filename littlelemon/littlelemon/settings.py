@@ -75,7 +75,6 @@ TEMPLATES = [
         },
     },
 ]
-#C:\Users\Philip\Documents\projects\apiproj\littlelemon\restaurant\templates
 
 WSGI_APPLICATION = 'littlelemon.wsgi.application'
 
