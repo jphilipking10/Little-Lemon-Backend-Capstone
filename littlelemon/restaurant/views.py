@@ -6,9 +6,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime
 
-from .serializers import BookingSerializer, MenuSerializer
-from .models import Booking, Menu
-from django.views.decorators.csrf import csrf_exempt
+from . serlializers import BookingSerializer, MenuSerializer
+from . models import Booking, Menu
 
 # 
 # API views
@@ -23,27 +22,18 @@ class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     
-
-class BookingViewSet(generics.ListCreateAPIView):
+class BookingViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
+    
     queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-
-#class BookingViewSet(viewsets.ModelViewSet):
-#    permission_classes = [IsAuthenticated]
-#    queryset = Booking.objects.all()
-#    serializer_class = BookingSerializer
-
-class SingleBookingView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-
-
+#
+# Page views
+#
 def index(request: HttpRequest) -> HttpResponse:
     return render(request, 'index.html', {})
 
 def about(request):
-    return render(request, './about.html')
+    return render(request, 'about.html')
 
 def reservations(request:HttpRequest) -> HttpResponse:
     date = request.GET.get('date',datetime.today().date())
