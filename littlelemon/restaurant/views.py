@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core import serializers
 from rest_framework import generics
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from datetime import datetime
 
 from .serializers import BookingSerializer, MenuSerializer
@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 # API views
 #
 class MenuItemsView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
@@ -24,15 +24,15 @@ class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MenuSerializer
     
 
-class BookingViewSet(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-
-#class BookingViewSet(viewsets.ModelViewSet):
+#class BookingViewSet(generics.ListCreateAPIView):
 #    permission_classes = [IsAuthenticated]
 #    queryset = Booking.objects.all()
 #    serializer_class = BookingSerializer
+
+class BookingViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
 
 class SingleBookingView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()

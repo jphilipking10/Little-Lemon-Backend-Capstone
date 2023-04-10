@@ -63,7 +63,7 @@ ROOT_URLCONF = 'littlelemon.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['littlelemon/restaurant/templates'], # templates folder registered
+        'DIRS': ['templates'], # templates folder registered
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
